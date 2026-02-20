@@ -156,9 +156,20 @@ body.light-theme .moon-icon { transform: translateY(-150%) rotate(-90deg); opaci
 .contact-input { background-color: var(--panel-bg); color: var(--text-heading); border: 1px solid var(--border-color); padding: 12px; border-radius: 6px; font-family: inherit; font-size: 1rem;}
 .contact-input:focus { outline: none; border-color: var(--accent-green); }
 
-@media (max-width: 768px) {
-    body { flex-direction: column; }
-    .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border-color); padding-top: 40px;}
-    .main-content { padding: 20px; }
-    .term-input { width: 100%; }
-}
+ @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border-color); padding: 40px 20px 20px; }
+            .main-content { padding: 20px; padding-top: 40px; }
+            .section-title { font-size: 1.25rem; }
+            #home h1 { font-size: 1.8rem !important; } /* Уменьшаем гигантский заголовок Welcome */
+            .term-input { width: 100%; flex: none; }
+            .card { padding: 15px; }
+            .card-footer { flex-direction: column; align-items: flex-start; }
+            .github-link { width: 100%; justify-content: center; }
+        }
+
+        @media (max-width: 480px) {
+            #home h1 { font-size: 1.5rem !important; }
+            .control-btn { width: 35px; height: 35px; }
+            .tech-badge { font-size: 0.75rem; padding: 3px 6px; }
+        }

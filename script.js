@@ -271,3 +271,24 @@ runSudokuBtn.addEventListener('click', () => {
 
 setTimeout(updateLanguage, 600); 
 setInterval(getDiscordStatus, 30000);
+
+const backToTopBtn = document.getElementById('backToTop');
+const mainContent = document.querySelector('.main-content');
+
+function checkScroll() {
+       const scrolled = mainContent.scrollTop || window.pageYOffset || document.documentElement.scrollTop;
+
+    if (scrolled > 150) {
+        backToTopBtn.classList.add('show');
+    } else {
+        backToTopBtn.classList.remove('show');
+    }
+}
+
+mainContent.addEventListener('scroll', checkScroll);
+window.addEventListener('scroll', checkScroll);
+
+backToTopBtn.addEventListener('click', () => {
+    mainContent.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});

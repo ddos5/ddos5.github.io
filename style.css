@@ -130,12 +130,28 @@ body.light-theme .moon-icon { transform: translateY(-150%) rotate(-90deg); opaci
     100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
 }
 
-.terminal-window { background-color: #1e1e1e; border-radius: 8px; border: 1px solid #333; overflow: hidden; margin-top: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
-.terminal-header { background-color: #323233; padding: 8px 15px; display: flex; align-items: center; position: relative; }
-.term-dots { display: flex; gap: 6px; }
-.dot { width: 12px; height: 12px; border-radius: 50%; }
-.dot.red { background-color: #ff5f56; } .dot.yellow { background-color: #ffbd2e; } .dot.green { background-color: #27c93f; }
-.term-title { position: absolute; width: 100%; text-align: center; left: 0; color: #ccc; font-size: 0.85rem; pointer-events: none; }
+.terminal-header { 
+            background-color: #323233; 
+            padding: 8px 15px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; /* Отступ между точками и текстом */
+        }
+        .term-dots { display: flex; gap: 6px; flex-shrink: 0; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot.red { background-color: #ff5f56; } .dot.yellow { background-color: #ffbd2e; } .dot.green { background-color: #27c93f; }
+        
+        .term-title { 
+            flex: 1; 
+            text-align: center; 
+            color: #ccc; 
+            font-size: 0.85rem; 
+            pointer-events: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; /* Если путь слишком длинный, он сократится точками */
+            padding-right: 40px; /* Чтобы текст визуально был по центру окна с учетом точек слева */
+        }
 .terminal-body { padding: 15px; font-family: 'Consolas', monospace; color: #e6e6e6; min-height: 150px; }
 .term-input-row { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 15px; }
 .prompt { color: #4ade80; } .command { color: #569cd6; }
@@ -156,20 +172,60 @@ body.light-theme .moon-icon { transform: translateY(-150%) rotate(-90deg); opaci
 .contact-input { background-color: var(--panel-bg); color: var(--text-heading); border: 1px solid var(--border-color); padding: 12px; border-radius: 6px; font-family: inherit; font-size: 1rem;}
 .contact-input:focus { outline: none; border-color: var(--accent-green); }
 
- @media (max-width: 768px) {
-            body { flex-direction: column; }
-            .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border-color); padding: 40px 20px 20px; }
-            .main-content { padding: 20px; padding-top: 40px; }
-            .section-title { font-size: 1.25rem; }
-            #home h1 { font-size: 1.8rem !important; } /* Уменьшаем гигантский заголовок Welcome */
-            .term-input { width: 100%; flex: none; }
-            .card { padding: 15px; }
-            .card-footer { flex-direction: column; align-items: flex-start; }
-            .github-link { width: 100%; justify-content: center; }
-        }
+.back-to-top {
+    display: none; 
+}
 
-        @media (max-width: 480px) {
-            #home h1 { font-size: 1.5rem !important; }
-            .control-btn { width: 35px; height: 35px; }
-            .tech-badge { font-size: 0.75rem; padding: 3px 6px; }
+@keyframes floatingIcon {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.back-to-top {
+    text-decoration: none !important;
+}
+
+@media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { 
+                width: 100%; border-right: none; border-bottom: 1px solid var(--border-color); 
+                padding-top: 80px; 
+            }
+            .main-content { padding: 20px; }
+            .term-input { width: 100%; }
+            .term-title { padding-right: 0; } 
+            .back-to-top {
+        display: flex; 
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        width: 50px;
+        height: 50px;
+        background-color: var(--accent-green);
+        color: var(--bg-color);
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        z-index: 10000;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    
+    .back-to-top.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        animation: floatMobile 3s ease-in-out infinite;
+    }
+
+    @keyframes floatMobile {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
+    }
         }
